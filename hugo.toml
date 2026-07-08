@@ -1,4 +1,4 @@
-baseURL = "https://SkyrimIIII.com/"
+baseURL = "https://github.com/Solaable/skyrim.github.io"
 languageCode = "zh-cn"
 title = "Skyrim's blog"
 theme = "github-style"
