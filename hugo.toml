@@ -1,4 +1,4 @@
-baseURL = "https://solaable.github.io"
+baseURL = "https://solaable.github.io/"
 languageCode = "zh-cn"
 title = "Skyrim's blog"
 theme = "github-style"
