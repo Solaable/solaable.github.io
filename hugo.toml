@@ -4,13 +4,14 @@ title = "Skyrim's blog"
 theme = "github-style"
 pygmentsCodeFences = true
 pygmentsUseClasses = true
+lastmod = true
 
 [params]
   author = "Skyrim"
   description = "不 须 放 屁 ！试 看 天 地 翻 覆 。"
   github = "Solaable"
   email = "2251318580@qq.com"
-  url = "https://SkyrimIIII.com"
+  url = "https://solaable.github.io/"
   keywords = "blog, google analytics"
   rss = true
   lastmod = true
@@ -25,9 +26,9 @@ pygmentsUseClasses = true
   [params.gitalk]
     clientID = "Your client ID" # Your client ID
     clientSecret = "Your client secret" # Your client secret
-    repo = "LuvSia" # 您的博客的github地址Repository name，例如：xxxx.github.io
-    owner = "ventusoon" # 您的GitHub ID
-    admin = "ventusoon" # 您的GitHub ID
+    repo = "solaable.github.io" # 您的博客的github地址Repository name，例如：xxxx.github.io
+    owner = "solaable" # 您的GitHub ID
+    admin = "solaable" # 您的GitHub ID
     id = "location.pathname" # 文章页面的链接地址就是ID
     labels = "gitalk" # Github issue labels. If you used to use Gitment, you can change it
     perPage = 15 # Pagination size, with maximum 100.

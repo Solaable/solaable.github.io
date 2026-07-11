@@ -17,37 +17,60 @@ hugo是根据文件目录来渲染出html的，要修改它必须了解它的项
 在创建一个站点时，会自动生成以下目录：   
 ```
 my-site/
-├── archetypes/
+├── archetypes/存放了一个文件，用来在创建md文件的时候添加到头部，写了一些创建日期，作者的信息以及一些基础设计。
 │   └── default.md
-├── assets/
-├── content/
-├── data/
-├── i18n/
-├── layouts/
-├── static/
-├── themes/
-└── hugo.toml         <-- 站点配置
+├── assets/包含通常通过资源管道传递的全局资源。包括图片、CSS、Sass、JavaScript 和TypeScript 等资源。
+├── content/一般存放要展示的md文件。
+├── data/data 目录包含用于增强内容、配置、本地化和导航的数据文件（JSON、TOML、YAML 或 XML）。
+├── i18n/语言翻译，用来在多语言时替换网站基础文本。  
+├── layouts/包含将内容、数据和资源转换为完整网站的模板。 
+├── static/包含在构建站点时将复制到 public 目录的文件，例如 favicon.ico、robots.txt 和用于验证站点拥有权的文件。
+├── themes/themes 目录包含一个或多个主题，每个主题位于自己的子目录中。  
+└── hugo.toml  包含站点配置，可能分为多个子目录和文件。对于配置较少或不需要在不同环境中以不同方式运行的项目，项目根目录中的单个 hugo.toml 配置文件就足够了。       
 ```
-每个子目录都贡献于站点的内容、结构、行为或呈现。  
-####archetypes  
-简单来说就是存放了一个文件，用来在创建md文件的时候添加到头部，写了一些创建日期，作者的信息以及一些基础设计。
-####assets
-assets 目录包含通常通过资源管道传递的全局资源。包括图片、CSS、Sass、JavaScript 和 TypeScript 等资源。
-####config(.toml文件)
-config 目录包含站点配置，可能分为多个子目录和文件。对于配置较少或不需要在不同环境中以不同方式运行的项目，项目根目录中的单个 hugo.toml 配置文件就足够了。
-####content
-content 目录包含组成站点内容的标记文件（通常是 markdown）和页面资源。详见 详情.
-####data
-data 目录包含用于增强内容、配置、本地化和导航的数据文件（JSON、TOML、YAML 或 XML）。详见 详情.
-####i18n
-i18n 目录包含多语言站点的翻译表。详见 详情.
-####layouts
-layouts 目录包含将内容、数据和资源转换为完整网站的模板。详见 详情.
-####public
-public 目录包含发布的网站，在运行 hugo 命令时生成。Hugo 根据需要重建此目录及其内容。详见 详情.
-####resources
-resources 目录包含 Hugo 资源管道的缓存输出，在运行 hugo 或 hugo server 命令时生成。默认情况下，此缓存目录包括 CSS 和图片。Hugo 根据需要重建此目录及其内容。
-####static
-static 目录包含在构建站点时将复制到 public 目录的文件，例如 favicon.ico、robots.txt 和用于验证站点拥有权的文件。在引入 页面包 和 资源管道 之前，static 目录也用于存放图片、CSS 和 JavaScript 等资源。详见 详情.
-####themes
-themes 目录包含一个或多个主题，每个主题位于自己的子目录中。
+##安装步骤
+一般来说，在hugo官网下载了模板后，根据其的Readme.md即可配置自己的个人博客网站。  
+需要着重注意的是archetypes、content、hugo.toml、themes文件夹。  
+以我使用的模板为例，我会记录完整安装步骤。  
+这里先贴出hugo的[中文文档](https://hugo.opendocs.io/getting-started/)网站  
+### 1. 准备工作  
+* [安装Hugo](https://hugo.opendocs.io/installation/) 
+* [安装Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)  
+安装步骤可在各大视频网站搜索。  
+### 2. 安装theme模板  
+* Init hugo site 创建hugo项目结构  
+```bash
+hugo new site mysite
+cd mysite
+```
+* Install the theme 克隆主题到目录中  
+```bash
+git submodule add git@github.com:MeiK2333/github-style.git themes/github-style
+```
+###3. 根据readme.md来修改文件  
+以该主题为例，依照readme.md，修改config.toml文件的配置。  
+这样一个基础的hugo项目就完成了，接下来需要为博客添加文章。  
+###4. 新建博客文章  
+使用命令行在项目目录下运行以下代码来创建文章 ：   
+```
+hugo new post/title_of_the_post.md
+```
+使用以下来配置文章信息：  
+* summarry 文章简介
+```
+---
+title: "title"
+date: 2019-10-22T18:46:47+08:00
+draft: false
+summary: "The summary content"
+---
+```
+* last modified date 最后修改时间
+add to `config.toml`
+
+```toml
+lastmod = true
+
+[frontmatter]
+  lastmod = ["lastmod", ":fileModTime", ":default"]
+```
