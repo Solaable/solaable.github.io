@@ -50,3 +50,10 @@ lastmod = true
 [services]
   [services.googleAnalytics]
     ID = "UA-123456-789"
+[outputs]
+  home = ["html", "json"]
+
+[outputFormats.json]
+  mediaType = "application/json"
+  baseName = "index"
+  isPlainText = false
