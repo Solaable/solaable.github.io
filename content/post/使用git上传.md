@@ -39,7 +39,13 @@ git config --list
 进入项目根目录，执行：
 
 ```bash
-git init
+git init #初始化仓库  
+git add . #暂存所有文件
+git commit -m "版本信息" #创建提交
+#如果是首次创建还应在此次关联仓库↓
+git remote add origin <你的仓库地址> #关联远程仓库
+git push -u origin main   # 如果默认分支是 main
+# 或 git push -u origin master
 ```
 
 这会在当前目录创建隐藏的 `.git` 文件夹，表示本地仓库初始化完成。
@@ -136,6 +142,88 @@ node_modules/
 ```
 
 这些文件不会被 `git add .` 添加，也不会被 Git 跟踪。
+
+### 1. 为什么要忽略这些文件？
+
+| 文件/目录           | 原因                                                         |
+| ------------------- | ------------------------------------------------------------ |
+| `.env`、`.flaskenv` | 通常包含敏感配置（数据库密码、API 密钥等），泄露会造成安全风险。 |
+| `.idea/`            | PyCharm 的项目配置，与个人开发环境相关，不应共享。           |
+| `__pycache__/`      | Python 编译缓存，无版本价值，且会频繁变动。                  |
+| `venv312/`          | 虚拟环境目录，体积大且依赖可通过 `requirements.txt` 重建。   |
+
+### 2. 如何创建 `.gitignore`
+
+在项目根目录（`D:\QA`）新建一个名为 `.gitignore` 的文件（注意没有扩展名），然后根据你的项目添加规则。以下是一个常见 Python 项目的 `.gitignore` 示例：
+
+gitignore
+
+```
+# Python 缓存
+__pycache__/
+*.py[cod]
+*$py.class
+
+# 虚拟环境
+venv/
+venv312/
+.venv/
+
+# 环境变量文件
+.env
+.flaskenv
+
+# IDE 配置
+.idea/
+.vscode/
+
+# 其他常见忽略
+*.log
+.DS_Store
+```
+
+你可以直接复制上面的内容到 `.gitignore` 文件里，然后保存。
+
+### 3. 创建后如何提交
+
+1. **先创建 .gitignore 文件**（如上）。
+
+2. **执行 git add .**：此时 Git 会自动忽略 `.gitignore` 中指定的文件和目录，不会将它们加入暂存区。
+
+3. **确认忽略生效**：运行 `git status`，你会看到那些被忽略的文件不再出现在 “Untracked files” 列表中。
+
+4. **正常提交和推送**：
+
+   bash
+
+   ```
+   git commit -m "Initial commit"
+   git push -u origin master
+   ```
+
+   ​
+
+   ​
+
+### 4. 注意事项
+
+#### 4.1 如果已经提交过敏感文件（本次不需要，但以后可能遇到）
+
+如果 `.env` 等文件已经提交过，仅仅加入 `.gitignore` 不会让 Git 停止跟踪它们。你需要执行：
+
+bash
+
+```
+git rm --cached .env    # 从 Git 索引中移除，但保留本地文件
+```
+
+然后提交这个删除操作，并在 `.gitignore` 中添加 `.env`。如果敏感信息已经推送到远程，还需要考虑修改密钥或清理历史。
+
+#### 4.2 检查其他可能被忽略的文件
+
+- `*.pyc` 文件、`build/`、`dist/` 等构建产物。
+- 你的项目可能还有 `requirements.txt` 或 `pipfile`，这些**应该提交**，而不是忽略。
+- 如果有 `.env.example` 或 `.flaskenv.example` 文件，可以作为模板提交，但不要提交真实的 `.env`。
 
 ## 10. 常见问题
 
